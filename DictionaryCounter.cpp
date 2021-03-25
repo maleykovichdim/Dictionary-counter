@@ -2,6 +2,7 @@
 #include "pch.h"
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <regex>
 #include <map>
 #include <algorithm>
@@ -33,11 +34,19 @@ void wordCountering(std::string input){
   }
 }
 
-
-
-
-int main() {
-	const std::string input = "The time has come, the Walrus said, Walrus to talk Walrus of many things... qwe, rt and asdf. Hello, i am string\nHow are you?\n-All OK!";
-	//const std::string input = ",,*";
-	wordCountering(input);
+int main(int argc, char** argv)
+{
+   if  (argc != 2){
+	   std::cout << " we need only one param - file name " << "\n";
+	   return -1;
+   }
+   std::string  fileName = argv[1];
+   std::ifstream file;
+   file.open(fileName);
+   if (file.is_open()){
+	 std::string input;
+     std::getline(file, input);
+	 wordCountering(input);
+	 file.close();
+   }
 }
